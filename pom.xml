@@ -38,7 +38,7 @@
 		<read.timeout>30000</read.timeout>
 		<connection.timeout>40000</connection.timeout>
 		<retry.attempts>4</retry.attempts>
-		<browser>firefox</browser>
+		<browser>firefox_portable</browser>
 		<threads>1</threads>
 		<remote>false</remote>
 		<headless>false</headless>
@@ -48,6 +48,8 @@
 		<proxyEnabled>false</proxyEnabled>
 		<proxyHost />
 		<proxyPort />
+		<!--Firefox Binary -->
+		<pathFirefox.61.0.2.portable />
 	</properties>
 
 	<dependencies>
@@ -152,6 +154,8 @@
 								<webdriver.opera.driver>${webdriver.opera.driver}</webdriver.opera.driver>
 								<webdriver.gecko.driver>${webdriver.gecko.driver}</webdriver.gecko.driver>
 								<webdriver.edge.driver>${webdriver.edge.driver}</webdriver.edge.driver>
+<!-- 								Firefox Portable Binary Location -->
+								<pathFirefox.61.0.2.portable>/firefox_61_0_2_portable/App/Firefox64/firefox.exe</pathFirefox.61.0.2.portable>
 							</systemPropertyVariables>
 						</configuration>
 						<executions>

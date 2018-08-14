@@ -50,7 +50,7 @@ public class DriverFactory {
      * Instantiates a new driver factory.
      */
     public DriverFactory() {
-        DriverType driverType = FIREFOX;
+        DriverType driverType = DriverType.FIREFOX_PORTABLE;
         String browser = System.getProperty("browser", driverType.toString()).toUpperCase();
         try {
             driverType = valueOf(browser);

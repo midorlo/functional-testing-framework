@@ -4,6 +4,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -16,6 +17,8 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 
 // TODO: Auto-generated Javadoc
@@ -28,6 +31,15 @@ public enum DriverType implements DriverSetup {
 	FIREFOX {
         public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
             FirefoxOptions options = new FirefoxOptions();
+			try {
+				System.out.println("EXISTS: " + new File(DriverType.class.getResource(System.getProperty("pathFirefox.61.0.2.portable")).toURI()).exists());
+				File binaryFile = new File(DriverType.class.getResource(System.getProperty("pathFirefox.61.0.2.portable")).toURI());
+				FirefoxBinary binary = new FirefoxBinary(binaryFile);
+	            options.setBinary(binary);
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             options.merge(capabilities);
             options.setHeadless(HEADLESS);
 
@@ -35,9 +47,22 @@ public enum DriverType implements DriverSetup {
         }
     },
 /** The firefox portable. */
-FIREFOX_PORTABLE {
+	FIREFOX_PORTABLE {
         public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
             FirefoxOptions options = new FirefoxOptions();
+            String binaryLocation = System.getProperty("pathFirefox.61.0.2.portable");
+            System.out.println("BINARY:" + binaryLocation);
+            
+			try {
+				System.out.println("EXISTS: " + new File(DriverType.class.getResource(binaryLocation).toURI()).exists());
+				File binaryFile = new File(DriverType.class.getResource(binaryLocation).toURI());
+				FirefoxBinary binary = new FirefoxBinary(binaryFile);
+	            options.setBinary(binary);
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            
             options.merge(capabilities);
             options.setHeadless(HEADLESS);
 
