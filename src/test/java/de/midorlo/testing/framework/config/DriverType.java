@@ -29,119 +29,116 @@ public enum DriverType implements DriverSetup {
 
 	/** The firefox. */
 	FIREFOX {
-        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
-            FirefoxOptions options = new FirefoxOptions();
-			try {
-				System.out.println("EXISTS: " + new File(DriverType.class.getResource(System.getProperty("pathFirefox.61.0.2.portable")).toURI()).exists());
-				File binaryFile = new File(DriverType.class.getResource(System.getProperty("pathFirefox.61.0.2.portable")).toURI());
-				FirefoxBinary binary = new FirefoxBinary(binaryFile);
-	            options.setBinary(binary);
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            options.merge(capabilities);
-            options.setHeadless(HEADLESS);
+		public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
+			FirefoxOptions options = new FirefoxOptions();
+			
+			options.merge(capabilities);
+			options.setHeadless(HEADLESS);
 
-            return new FirefoxDriver(options);
-        }
-    },
-/** The firefox portable. */
+			return new FirefoxDriver(options);
+		}
+	},
+	/** The firefox portable. */
 	FIREFOX_PORTABLE {
-        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
-            FirefoxOptions options = new FirefoxOptions();
-            String binaryLocation = System.getProperty("pathFirefox.61.0.2.portable");
-            System.out.println("BINARY:" + binaryLocation);
-            
+		public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
+			FirefoxOptions options = new FirefoxOptions();
+			String binaryLocation = System.getProperty("pathFirefox.61.0.2.portable");
+			System.out.println("BINARY:" + binaryLocation);
+
 			try {
-				System.out.println("EXISTS: " + new File(DriverType.class.getResource(binaryLocation).toURI()).exists());
-				File binaryFile = new File(DriverType.class.getResource(binaryLocation).toURI());
+				System.out.println("EXISTS: " + new File(
+						DriverType.class.getResource(System.getProperty("pathFirefox.61.0.2.portable")).toURI())
+								.exists());
+				File binaryFile = new File(
+						DriverType.class.getResource(System.getProperty("pathFirefox.61.0.2.portable")).toURI());
 				FirefoxBinary binary = new FirefoxBinary(binaryFile);
-	            options.setBinary(binary);
+				options.setBinary(binary);
 			} catch (URISyntaxException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-            
-            options.merge(capabilities);
-            options.setHeadless(HEADLESS);
 
-            return new FirefoxDriver(options);
-        }
-    },
-    
-    /** The chrome. */
-    CHROME {
-        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
-            HashMap<String, Object> chromePreferences = new HashMap<>();
-            chromePreferences.put("profile.password_manager_enabled", false);
+			options.merge(capabilities);
+			options.setHeadless(HEADLESS);
 
-            ChromeOptions options = new ChromeOptions();
-            options.merge(capabilities);
-            options.setHeadless(HEADLESS);
-            options.addArguments("--no-default-browser-check");
-            options.setExperimentalOption("prefs", chromePreferences);
+			return new FirefoxDriver(options);
+		}
+	},
 
-            return new ChromeDriver(options);
-        }
-    },
-    
-    /** The ie. */
-    IE {
-        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
-            InternetExplorerOptions options = new InternetExplorerOptions();
-            options.merge(capabilities);
-            options.setCapability(CapabilityType.ForSeleniumServer.ENSURING_CLEAN_SESSION, true);
-            options.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING, true);
-            options.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS, true);
+	/** The chrome. */
+	CHROME {
+		public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
+			HashMap<String, Object> chromePreferences = new HashMap<>();
+			chromePreferences.put("profile.password_manager_enabled", false);
 
-            return new InternetExplorerDriver(options);
-        }
+			ChromeOptions options = new ChromeOptions();
+			options.merge(capabilities);
+			options.setHeadless(HEADLESS);
+			options.addArguments("--no-default-browser-check");
+			options.setExperimentalOption("prefs", chromePreferences);
 
-        @Override
-        public String toString() {
-            return "internet explorer";
-        }
-    },
-    
-    /** The edge. */
-    EDGE {
-        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
-            EdgeOptions options = new EdgeOptions();
-            options.merge(capabilities);
+			return new ChromeDriver(options);
+		}
+	},
 
-            return new EdgeDriver(options);
-        }
-    },
-    
-    /** The safari. */
-    SAFARI {
-        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
-            SafariOptions options = new SafariOptions();
-            options.merge(capabilities);
+	/** The ie. */
+	IE {
+		public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
+			InternetExplorerOptions options = new InternetExplorerOptions();
+			options.merge(capabilities);
+			options.setCapability(CapabilityType.ForSeleniumServer.ENSURING_CLEAN_SESSION, true);
+			options.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING, true);
+			options.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS, true);
 
-            return new SafariDriver(options);
-        }
-    },
-    
-    /** The opera. */
-    OPERA {
-        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
-            OperaOptions options = new OperaOptions();
-            options.merge(capabilities);
+			return new InternetExplorerDriver(options);
+		}
 
-            return new OperaDriver(options);
-        }
-    };
+		@Override
+		public String toString() {
+			return "internet explorer";
+		}
+	},
 
-    /** The Constant HEADLESS. */
-    public final static boolean HEADLESS = Boolean.getBoolean("headless");
+	/** The edge. */
+	EDGE {
+		public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
+			EdgeOptions options = new EdgeOptions();
+			options.merge(capabilities);
 
-    /* (non-Javadoc)
-     * @see java.lang.Enum#toString()
-     */
-    @Override
-    public String toString() {
-        return super.toString().toLowerCase();
-    }
+			return new EdgeDriver(options);
+		}
+	},
+
+	/** The safari. */
+	SAFARI {
+		public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
+			SafariOptions options = new SafariOptions();
+			options.merge(capabilities);
+
+			return new SafariDriver(options);
+		}
+	},
+
+	/** The opera. */
+	OPERA {
+		public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
+			OperaOptions options = new OperaOptions();
+			options.merge(capabilities);
+
+			return new OperaDriver(options);
+		}
+	};
+
+	/** The Constant HEADLESS. */
+	public final static boolean HEADLESS = Boolean.getBoolean("headless");
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Enum#toString()
+	 */
+	@Override
+	public String toString() {
+		return super.toString().toLowerCase();
+	}
 }
